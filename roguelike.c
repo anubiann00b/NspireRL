@@ -1,6 +1,6 @@
 #include <os.h>
 #include <nspireio2.h>
-#include <Console.c>
+#include <console.c>
 
 #define MAP_WIDTH   53
 #define MAP_HEIGHT  29
