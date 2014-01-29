@@ -1,5 +1,6 @@
 #include <os.h>
 #include <nspireio2.h>
+#include <Console.c>
 
 #define MAP_WIDTH   53
 #define MAP_HEIGHT  29
@@ -46,11 +47,8 @@ int mapArray[MAP_HEIGHT][MAP_WIDTH] = {
 int main(void)
 {
 	int playerX=2, playerY=10;
-	nio_console csl;
-    lcd_ingray();
-    clrscr();
-    nio_InitConsole(&csl, 53, 29, 0, 0, 0, 15);
-    nio_DrawConsole(&csl);
+    nio_console csl;
+	init(csl);
 	drawMap();
 	writeCharG(playerX,playerY,'@');
 	while(!isKeyPressed(KEY_NSPIRE_ESC))
@@ -83,18 +81,20 @@ int main(void)
 			writeCharG(playerX-dx,playerY-dy,getMapTile(playerX-dx,playerY-dy));
 		}
 	}
-	nio_CleanUp(&csl);
+    cleanUp(csl);
 	return 0;
 }
+
 int isPassable(int x, int y)
 {
-    if(x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT)
+    if(x<0 || x>=MAP_WIDTH || y<0 || y>=MAP_HEIGHT)
         return 0;
 	int tileValue = mapArray[y][x];
     if(tileValue == TILE_FLOOR)
         return 1;
     return 0;
 }
+
 char getMapTile(int x, int y)
 {
 	if(mapArray[y][x]==TILE_FLOOR)
@@ -110,6 +110,7 @@ char getMapTile(int x, int y)
 		return 'x';
 	}
 }
+
 void drawMap(void)
 {
 	int x,y;
@@ -121,13 +122,14 @@ void drawMap(void)
         }
     }
 }
+
 int median(int A, int B, int C)
 {
-    if ((A - B) * (C - A) >= 0)
+    if ((A-B)*(C-A)>=0)
 	{
         return A;
     }
-	else if ((B - A) * (C - B) >= 0)
+	else if ((B-A)*(C-B)>=0)
 	{
         return B;
     }
@@ -136,6 +138,7 @@ int median(int A, int B, int C)
         return C;
     }
 }
+
 void writeCharC(int x, int y, char ch, int color)
 {
 	putChar(x*6,y*8,ch,0,color);
