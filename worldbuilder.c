@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <roguelike.h>
 #include <helper.h>
 
@@ -59,12 +60,12 @@ void smooth(int tiles[MAP_WIDTH][MAP_HEIGHT], int times, int liveAmount)
             tiles2[x][y] = floors >= walls ? TILE_FLOOR : TILE_WALL;
             }
         }
-        tiles = tiles2;
+        memcpy(tiles, tiles2, sizeof(tiles2) / sizeof(int)+1);
     }
 }
 
 void makeCaves(int tiles[MAP_WIDTH][MAP_HEIGHT])
 {
     randomizeTiles(tiles,55);
-    smooth(tiles,5,5);
+    smooth(tiles,9,5);
 }

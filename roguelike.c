@@ -17,23 +17,44 @@ int main(void)
 	writeCharG(playerX,playerY,'@');
 	while(!isKeyPressed(KEY_NSPIRE_ESC))
 	{
-		int dx=0, dy=0;
+		int dx=0;
+        int dy=0;
 		if (isKeyPressed(KEY_NSPIRE_8) || isKeyPressed(KEY_NSPIRE_UP))
 		{
 			dy=-1;
 		}
-		if (isKeyPressed(KEY_NSPIRE_2) || isKeyPressed(KEY_NSPIRE_DOWN))
+		else if (isKeyPressed(KEY_NSPIRE_2) || isKeyPressed(KEY_NSPIRE_DOWN))
 		{
 			dy=1;
 		}
-		if (isKeyPressed(KEY_NSPIRE_4) || isKeyPressed(KEY_NSPIRE_LEFT))
+		else if (isKeyPressed(KEY_NSPIRE_4) || isKeyPressed(KEY_NSPIRE_LEFT))
 		{
 			dx=-1;
 		}
-		if (isKeyPressed(KEY_NSPIRE_6) || isKeyPressed(KEY_NSPIRE_RIGHT))
+		else if (isKeyPressed(KEY_NSPIRE_6) || isKeyPressed(KEY_NSPIRE_RIGHT))
 		{
 			dx=1;
 		}
+        else if (isKeyPressed(KEY_NSPIRE_1))
+        {
+            dx=-1;
+            dy=1;
+        }
+        else if (isKeyPressed(KEY_NSPIRE_3))
+        {
+            dx=1;
+            dy=1;
+        }
+        else if (isKeyPressed(KEY_NSPIRE_7))
+        {
+            dx=-1;
+            dy=-1;
+        }
+        else if (isKeyPressed(KEY_NSPIRE_9))
+        {
+            dx=1;
+            dy=-1;
+        }
 		if(isPassable(playerX+dx,playerY+dy))
         {
 			playerX+=dx;
@@ -53,8 +74,7 @@ int isPassable(int x, int y)
 {
     if(x<0 || x>=MAP_WIDTH || y<0 || y>=MAP_HEIGHT)
         return 0;
-	int tileValue = mapArray[y][x];
-    if(tileValue == TILE_FLOOR)
+    if(mapArray[y][x] == TILE_FLOOR)
         return 1;
     return 0;
 }
