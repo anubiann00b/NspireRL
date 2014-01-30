@@ -1,6 +1,6 @@
 #include <os.h>
 #include <nspireio2.h>
-#include <console.c>
+#include <console.h>
 
 #define MAP_WIDTH   53
 #define MAP_HEIGHT  29
@@ -81,7 +81,7 @@ int main(void)
 			writeCharG(playerX-dx,playerY-dy,getMapTile(playerX-dx,playerY-dy));
 		}
 	}
-    cleanUp(csl);
+    cleanup(csl);
 	return 0;
 }
 

@@ -9,7 +9,7 @@ void init(nio_console csl)
     nio_DrawConsole(&csl);
 }
 
-void cleanUp(nio_console csl)
+void cleanup(nio_console csl)
 {
     nio_CleanUp(&csl);
 }
