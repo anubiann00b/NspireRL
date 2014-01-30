@@ -19,6 +19,8 @@ void smooth(int tiles[MAP_WIDTH][MAP_HEIGHT], int times, int liveAmount)
 {
     int tiles2[MAP_WIDTH][MAP_HEIGHT];
 
+    memcpy(tiles2, tiles, MAP_WIDTH*MAP_HEIGHT*sizeof(int));
+
     int time;
     for (time = 0; time < times; time++)
     {
@@ -28,44 +30,40 @@ void smooth(int tiles[MAP_WIDTH][MAP_HEIGHT], int times, int liveAmount)
             int y;
             for (y = 0; y < MAP_HEIGHT; y++)
             {
-            int floors = 0;
-            int walls = 0;
+                int floors = 0;
+                int walls = 0;
 
-            int ox;
-            for (ox = -1; ox < 2; ox++)
-            {
-                int oy;
-                for (oy = -1; oy < 2; oy++)
+                int ox;
+                for (ox = -1; ox < 2; ox++)
                 {
-                    if (x + ox < 0 || x + ox >= MAP_WIDTH || y + oy < 0 || y + oy >= MAP_HEIGHT)
-                        continue;
-                    if (tiles[x + ox][y + oy] == TILE_FLOOR)
-                        floors++;
-                    else
-                        walls++;
+                    int oy;
+                    for (oy = -1; oy < 2; oy++)
+                    {
+                        if (x + ox < 0 || x + ox >= MAP_WIDTH || y + oy < 0 || y + oy >= MAP_HEIGHT)
+                            continue;
+                        if (tiles[x + ox][y + oy] == TILE_FLOOR)
+                            floors++;
+                        else
+                            walls++;
+                    }
                 }
-            }
-            if (walls >= liveAmount)
-            {
-                tiles2[x][y] = TILE_WALL;
-            }
-            else if (walls == 0)
-            {
-                tiles2[x][y] = TILE_WALL;
-            }
-            else
-            {
-                tiles2[x][y] = TILE_FLOOR;
-            }
-            tiles2[x][y] = floors >= walls ? TILE_FLOOR : TILE_WALL;
+                
+                if (walls >= liveAmount)
+                    tiles2[x][y] = TILE_WALL;
+                else if (walls == 0)
+                    tiles2[x][y] = TILE_WALL;
+                else
+                    tiles2[x][y] = TILE_FLOOR;
+
+                tiles2[x][y] = floors >= walls ? TILE_FLOOR : TILE_WALL;
             }
         }
-        memcpy(tiles, tiles2, sizeof(tiles2) / sizeof(int)+1);
+        memcpy(tiles, tiles2, MAP_WIDTH*MAP_HEIGHT*sizeof(int));
     }
 }
 
 void makeCaves(int tiles[MAP_WIDTH][MAP_HEIGHT])
 {
     randomizeTiles(tiles,55);
-    smooth(tiles,9,5);
+    smooth(tiles,5,5);
 }
