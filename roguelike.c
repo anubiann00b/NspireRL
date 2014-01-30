@@ -15,6 +15,7 @@ int main(void)
 	init(csl);
     makeCaves(mapArray);
 	drawMap();
+
 	writeCharG(playerX,playerY,'@');
 	while(!isKeyPressed(KEY_NSPIRE_ESC))
 	{

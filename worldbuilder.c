@@ -14,6 +14,7 @@ void randomizeTiles(int tiles[MAP_WIDTH][MAP_HEIGHT], int chanceOfFloor)
             tiles[x][y] = random(100) < chanceOfFloor ? TILE_FLOOR : TILE_WALL;
         }
     }
+    //printArray(tiles);
 }
 
 void smooth(int tiles[MAP_WIDTH][MAP_HEIGHT], int times, int liveAmount)
