@@ -1,3 +1,9 @@
+#include <stdlib.h>
+
+int random(int max)
+{
+    return (rand() % max);
+}
 
 int median(int A, int B, int C)
 {
