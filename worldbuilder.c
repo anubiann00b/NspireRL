@@ -1,3 +1,4 @@
+#include <os.h>
 #include <stdio.h>
 #include <roguelike.h>
 #include <helper.h>
@@ -14,14 +15,21 @@ void randomizeTiles(int tiles[MAP_WIDTH][MAP_HEIGHT], int chanceOfFloor)
             tiles[x][y] = random(100) < chanceOfFloor ? TILE_FLOOR : TILE_WALL;
         }
     }
-    //printArray(tiles);
 }
 
 void smooth(int tiles[MAP_WIDTH][MAP_HEIGHT], int times, int liveAmount)
 {
     int tiles2[MAP_WIDTH][MAP_HEIGHT];
 
-    memcpy(tiles2, tiles, MAP_WIDTH*MAP_HEIGHT*sizeof(int));
+    int i;
+    for (i=0;i<MAP_WIDTH;i++)
+    {
+        int j;
+        for (j=0;j<MAP_HEIGHT;j++)
+        {
+            tiles2[i][j] = tiles[i][j];
+        }
+    }
 
     int time;
     for (time = 0; time < times; time++)
@@ -60,7 +68,24 @@ void smooth(int tiles[MAP_WIDTH][MAP_HEIGHT], int times, int liveAmount)
                 tiles2[x][y] = floors >= walls ? TILE_FLOOR : TILE_WALL;
             }
         }
-        memcpy(tiles, tiles2, MAP_WIDTH*MAP_HEIGHT*sizeof(int));
+
+        int i;
+        for (i=0;i<MAP_WIDTH;i++)
+        {
+            int j;
+            for (j=0;j<MAP_HEIGHT;j++)
+            {
+                tiles[i][j] = tiles2[i][j];
+            }
+        }
+    }
+    for (i=0;i<MAP_WIDTH;i++)
+    {
+        int j;
+        for (j=0;j<MAP_HEIGHT;j++)
+        {
+            tiles[i][j] = tiles2[i][j];
+        }
     }
 }
 

@@ -5,7 +5,7 @@
 #include <helper.h>
 #include <worldbuilder.h>
 
-int mapArray[MAP_HEIGHT][MAP_WIDTH];
+static int mapArray[MAP_HEIGHT][MAP_WIDTH];
 
 int main(void)
 {
@@ -13,10 +13,13 @@ int main(void)
     nio_console csl;
     initRandom();
 	init(csl);
+
     makeCaves(mapArray);
-	drawMap();
+
+	drawMap(mapArray);
 
 	writeCharG(playerX,playerY,'@');
+
 	while(!isKeyPressed(KEY_NSPIRE_ESC))
 	{
 		int dx=0;
@@ -57,7 +60,7 @@ int main(void)
             dx=1;
             dy=-1;
         }
-		if(isPassable(playerX+dx,playerY+dy))
+		if(isPassable(mapArray, playerX+dx,playerY+dy))
         {
 			playerX+=dx;
 			playerY+=dy;
@@ -65,29 +68,29 @@ int main(void)
 		if (dx!=0 || dy!=0)
 		{
 			writeCharG(playerX,playerY,'@');
-			writeCharG(playerX-dx,playerY-dy,getMapTile(playerX-dx,playerY-dy));
+			writeCharG(playerX-dx,playerY-dy,getMapTile(mapArray,playerX-dx,playerY-dy));
 		}
 	}
     cleanup(csl);
 	return 0;
 }
 
-int isPassable(int x, int y)
+int isPassable(int tiles[MAP_WIDTH][MAP_HEIGHT], int x, int y)
 {
     if(x<0 || x>=MAP_WIDTH || y<0 || y>=MAP_HEIGHT)
         return 0;
-    if(mapArray[y][x] == TILE_FLOOR)
+    if(tiles[y][x] == TILE_FLOOR)
         return 1;
     return 0;
 }
 
-char getMapTile(int x, int y)
+char getMapTile(int tiles[MAP_WIDTH][MAP_HEIGHT], int x, int y)
 {
-	if(mapArray[y][x]==TILE_FLOOR)
+	if(tiles[y][x]==TILE_FLOOR)
 	{
 		return '.';
 	}
-	else if(mapArray[y][x]==TILE_WALL)
+	else if(tiles[y][x]==TILE_WALL)
 	{
 		return '#';
 	}
@@ -97,14 +100,14 @@ char getMapTile(int x, int y)
 	}
 }
 
-void drawMap(void)
+void drawMap(int tiles[MAP_WIDTH][MAP_HEIGHT])
 {
 	int x,y;
     for(y=0;y<MAP_HEIGHT;y++)
     {
         for (x=0;x<MAP_WIDTH;x++)
         {
-			writeCharG(x,y,getMapTile(x,y));
+			writeCharG(x,y,getMapTile(tiles,x,y));
         }
     }
 }

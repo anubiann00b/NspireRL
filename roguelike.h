@@ -6,6 +6,6 @@
 #define TILE_WALL   1
 
 int random(int);
-void drawMap(void);
-char getMapTile(int,int);
-int isPassable(int,int);
+void drawMap(int tiles[53][29]);
+char getMapTile(int tiles[53][29], int,int);
+int isPassable(int tiles[53][29], int,int);
