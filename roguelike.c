@@ -1,15 +1,13 @@
 #include <os.h>
 #include <nspireio2.h>
 #include <console.h>
+#include <roguelike.h>
 
 #define MAP_WIDTH   53
 #define MAP_HEIGHT  29
 
 #define TILE_FLOOR  0
 #define TILE_WALL   1
-
-void drawMap(void);
-char getMapTile(int,int);
 
 int mapArray[MAP_HEIGHT][MAP_WIDTH] = {
     { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -41,7 +39,6 @@ int mapArray[MAP_HEIGHT][MAP_WIDTH] = {
     { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
 
 int main(void)
@@ -137,24 +134,4 @@ int median(int A, int B, int C)
 	{
         return C;
     }
-}
-
-void writeCharC(int x, int y, char ch, int color)
-{
-	putChar(x*6,y*8,ch,0,color);
-}
-
-void writeCharG(int x, int y, char ch)
-{
-	putChar(x*6,y*8,ch,0,15);
-}
-
-void writeStrC(int x, int y, char* str, int color)
-{
-	putStr(x*6,y*8,str,0,color);
-}
-
-void writeStrG(int x, int y, char* str)
-{
-	putStr(x*6,y*8,str,0,15);
 }
