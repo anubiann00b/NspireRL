@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <roguelike.h>
 #include <helper.h>
+#include <string.h>
 
 void randomizeTiles(int tiles[MAP_WIDTH][MAP_HEIGHT], int chanceOfFloor)
 {

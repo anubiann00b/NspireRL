@@ -11,6 +11,7 @@ int main(void)
 {
 	int playerX=2, playerY=10;
     nio_console csl;
+    initRandom();
 	init(csl);
     makeCaves(mapArray);
 	drawMap();
