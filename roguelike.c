@@ -2,6 +2,7 @@
 #include <nspireio2.h>
 #include <console.h>
 #include <roguelike.h>
+#include <helper.h>
 
 #define MAP_WIDTH   53
 #define MAP_HEIGHT  29
@@ -117,21 +118,5 @@ void drawMap(void)
         {
 			writeCharG(x,y,getMapTile(x,y));
         }
-    }
-}
-
-int median(int A, int B, int C)
-{
-    if ((A-B)*(C-A)>=0)
-	{
-        return A;
-    }
-	else if ((B-A)*(C-B)>=0)
-	{
-        return B;
-    }
-	else
-	{
-        return C;
     }
 }
