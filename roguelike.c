@@ -1,11 +1,8 @@
 #include <os.h>
 #include <nspireio2.h>
-#include <console.h>
 #include <roguelike.h>
-#include <helper.h>
-#include <worldbuilder.h>
 
-static int mapArray[MAP_HEIGHT][MAP_WIDTH];
+static int mapArray[MAP_WIDTH][MAP_HEIGHT];
 
 int main(void)
 {
@@ -79,18 +76,18 @@ int isPassable(int tiles[MAP_WIDTH][MAP_HEIGHT], int x, int y)
 {
     if(x<0 || x>=MAP_WIDTH || y<0 || y>=MAP_HEIGHT)
         return 0;
-    if(tiles[y][x] == TILE_FLOOR)
+    if(tiles[x][y] == TILE_FLOOR)
         return 1;
     return 0;
 }
 
 char getMapTile(int tiles[MAP_WIDTH][MAP_HEIGHT], int x, int y)
 {
-	if(tiles[y][x]==TILE_FLOOR)
+	if(tiles[x][y]==TILE_FLOOR)
 	{
 		return '.';
 	}
-	else if(tiles[y][x]==TILE_WALL)
+	else if(tiles[x][y]==TILE_WALL)
 	{
 		return '#';
 	}

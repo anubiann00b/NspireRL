@@ -1,16 +1,14 @@
 #include <os.h>
 #include <stdio.h>
-#include <roguelike.h>
-#include <helper.h>
 #include <string.h>
+#include <roguelike.h>
 
 void randomizeTiles(int tiles[MAP_WIDTH][MAP_HEIGHT], int chanceOfFloor)
 {
-    int x;
-    for (x = 0; x < MAP_WIDTH; x++)
+    int x,y;
+    for (x=0;x<MAP_WIDTH;x++)
     {
-        int y;
-        for (y = 0; y < MAP_HEIGHT; y++)
+        for (y=0;y<MAP_HEIGHT;y++)
         {
             tiles[x][y] = random(100) < chanceOfFloor ? TILE_FLOOR : TILE_WALL;
         }
@@ -21,32 +19,27 @@ void smooth(int tiles[MAP_WIDTH][MAP_HEIGHT], int times, int liveAmount)
 {
     int tiles2[MAP_WIDTH][MAP_HEIGHT];
 
-    int i;
+    int i,j;
     for (i=0;i<MAP_WIDTH;i++)
     {
-        int j;
         for (j=0;j<MAP_HEIGHT;j++)
         {
             tiles2[i][j] = tiles[i][j];
         }
     }
 
-    int time;
+    int time,x,y,ox,oy;
     for (time = 0; time < times; time++)
     {
-        int x;
         for (x = 0; x < MAP_WIDTH; x++)
         {
-            int y;
             for (y = 0; y < MAP_HEIGHT; y++)
             {
                 int floors = 0;
                 int walls = 0;
 
-                int ox;
                 for (ox = -1; ox < 2; ox++)
                 {
-                    int oy;
                     for (oy = -1; oy < 2; oy++)
                     {
                         if (x + ox < 0 || x + ox >= MAP_WIDTH || y + oy < 0 || y + oy >= MAP_HEIGHT)
@@ -69,10 +62,9 @@ void smooth(int tiles[MAP_WIDTH][MAP_HEIGHT], int times, int liveAmount)
             }
         }
 
-        int i;
+        int i,j;
         for (i=0;i<MAP_WIDTH;i++)
         {
-            int j;
             for (j=0;j<MAP_HEIGHT;j++)
             {
                 tiles[i][j] = tiles2[i][j];
@@ -81,7 +73,6 @@ void smooth(int tiles[MAP_WIDTH][MAP_HEIGHT], int times, int liveAmount)
     }
     for (i=0;i<MAP_WIDTH;i++)
     {
-        int j;
         for (j=0;j<MAP_HEIGHT;j++)
         {
             tiles[i][j] = tiles2[i][j];
