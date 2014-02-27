@@ -17,7 +17,7 @@ int main(void)
 
 	writeCharG(playerX,playerY,'@');
 
-	while(!isKeyPressed(KEY_NSPIRE_ESC))
+	while(!isKeyPressed(KEY_NSPIRE_0))
 	{
 		int dx=0;
         int dy=0;
